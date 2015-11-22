@@ -47,6 +47,8 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
+			var maze = new THREE.Object3D( ); // Container object, to contain all the separate walls and doors and put them in a single maze.
+
 			var geometry = new THREE.CubeGeometry( 1, 1, 2 );
 
 			var stoneMaterial = new THREE.MeshBasicMaterial( { color: 0x808080 } );
@@ -69,17 +71,21 @@
 				    	var block = new THREE.Mesh( geometry, stoneMaterial );
 				    	block.position.x = x;
 				    	block.position.y = y;
-				    	scene.add( block );
+				    	//scene.add( block );
+					maze.add( block );
 				    }
 				    else if ( ch == 'X' )
 				    {
 				    	var block = new THREE.Mesh( geometry, woodMaterial );
 				    	block.position.x = x;
 				    	block.position.y = y;
-				    	scene.add( block );
+				    	//scene.add( block );
+					maze.add( block );
 				    }
 			    }	
 			}
+
+                        scene.add( maze );
 
 			camera.position.x = 30;
 			camera.position.y = 10;
@@ -88,8 +94,7 @@
 			var render = function () {
 				requestAnimationFrame( render );
 
-				//cube.rotation.x += 0.1;
-				//cube.rotation.y += 0.1;
+				//maze.rotation.z += 0.01;
 
 				renderer.render(scene, camera);
 			};
